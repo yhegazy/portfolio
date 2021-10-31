@@ -1,15 +1,18 @@
-/* body {
-  height: 100vh
-} */
+/* 100% Height -> Must include root and App */
+html, body, #root, .App {
+  height:100vh
+}
 
 .content-container {
-  min-height: calc(100vh - 73px);
+    
+  /* min-height: calc(100vh - 34px); */
 }
 
 .footer--pin {
-  position: relative;
+  position:fixed;
   left: 0;
   bottom: 0;
+  width: 100%;
 }
 
 .strokeme {
