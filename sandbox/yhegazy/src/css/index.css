@@ -3,11 +3,6 @@ html, body, #root, .App {
   height:100vh
 }
 
-.content-container {
-    
-  /* min-height: calc(100vh - 34px); */
-}
-
 .footer--pin {
   position:fixed;
   left: 0;
