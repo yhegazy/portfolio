@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import Welcome from './Content/Welcome'
+import Sandbox from './Content/Sandbox'
+
 import Menu from './Menu/Menu'
-import useSave from './Content/sandbox/useSave'
 
 import "./css/general.css"
 import "./css/index.css"
@@ -12,17 +13,15 @@ const BG_COLORS = ['bg-blue-500','bg-green-500', 'bg-yellow-500', 'bg-red-500', 
 
 function App() {
   const [displaySizeColor] = useState("bg-blue-500")
- 
-    
-
+  
   return <>
     <div className={`App ${displaySizeColor}`}>
       {/* Menu */}
       <Menu dsc={displaySizeColor} key="1"/>
 
       {/* Content  */}
-      <Welcome dsc={displaySizeColor} key="2" />
-     {useSave()}
+      {/* <Welcome dsc={displaySizeColor} key="2" /> */}
+      <Sandbox />
 
 
       {/* Footer */}

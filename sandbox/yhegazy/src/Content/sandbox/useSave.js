@@ -1,18 +1,14 @@
-import {useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
-const useSave = () => {
-     console.log("You're Beautiful without useEffect & useEffectLayout")
-    //  This takes effect at render
-
+const useSave = (prefix, session) => {
+    
+    const [save, setSave] = useState(() => JSON.parse(sessionStorage.getItem(session)));
     useEffect(() => {
-         console.log("You're Beautiful with useEffect")
-        //  This takes effect after every re-render
-    })
+        setSave(sessionStorage.setItem(prefix, JSON.stringify(session)))
+    },[prefix, session])
 
-    useEffect(() => {
-         console.log("No beauty is as good as the first useEffect render ")
-        //  Get's rendered the first time
-    },[])
+    alert("Saved!")
+    console.log(save)
     
 }
 
