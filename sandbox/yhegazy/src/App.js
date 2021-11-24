@@ -1,11 +1,13 @@
 import {useState} from 'react'
-import Welcome from './Content/Welcome'
+// import Welcome from './Content/Welcome'
 import Sandbox from './Content/Sandbox'
 
-import Menu from './Menu/Menu'
+import SidebarMenu from './Menu/SidebarMenu'
 
 import "./css/general.css"
 import "./css/index.css"
+import "./css/style.css"
+
 
 
 const BORDER_COLOR = ['border-blue-500','border-green-500', 'border-yellow-500', 'border-red-500', 'border-indigo-500','border-purple-500']
@@ -16,8 +18,7 @@ function App() {
   
   return <>
     <div className={`App ${displaySizeColor}`}>
-      {/* Menu */}
-      <Menu dsc={displaySizeColor} key="1"/>
+      <SidebarMenu />
 
       {/* Content  */}
       {/* <Welcome dsc={displaySizeColor} key="2" /> */}
@@ -25,7 +26,7 @@ function App() {
 
 
       {/* Footer */}
-      <div className="footer--pin flex justify-between px-10 bg-gray-600 text-white">
+      <div className="flex justify-between px-10 text-white bg-gray-600 footer--pin">
         <p>Made in React + Typescript</p>
         <p>Day/Dark Mode</p>
       </div>

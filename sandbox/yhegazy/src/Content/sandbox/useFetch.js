@@ -8,6 +8,7 @@ export default function useFetch(baseUrl) {
        const response = await fetch(baseUrl + url, {
             method: "POST",
             headers: {
+                'Accept': 'application/json',
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(body)

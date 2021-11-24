@@ -5,17 +5,23 @@
 // TODO: "" https://pixijs.com/
 // TODO: "" https://www.typescriptlang.org/
 // TODO: "" https://reactrouter.com/
+// TODO: "" https://axios-http.com/
 // TODO: Transfer https://react-tutorial.app/ examples to showcase
 // TODO: Build useSave using fetch post & get 
 // TODO: Learn how to custom mod w/ TailwindCSS
 // TODO: Write a blog on each todo item. Preface with: "I am a B average student and so, my code reflects."
 
 
-import {useState, useEffect} from 'react'
+
+import {useState, useRef} from 'react'
 // import useSave from './Content/sandbox/useSave'
 import useDocumentTitle from './sandbox/useDocumentTitle'
 import useProductCounter from './sandbox/useProductCounter'
 import useFetch from './sandbox/useFetch'
+import useSave from './sandbox/useSave'
+
+const BTN_COLOR_ENABLED ="text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow"
+const BTN_COLOR_DISABLED="text-white bg-gray-400 rounded hover:bg-gray-700 py-2 px-4 shadow cursor-not-allowed"
 
 const Sandbox = () => {
     // useDocumentTitle customHook
@@ -25,31 +31,29 @@ const Sandbox = () => {
     useDocumentTitle( title.length > 0 ? `${title}`: 'Sandbox') //Complicated example
 
     const {count, increment, decrement} = useProductCounter() //2
-    const {get, post} = useFetch("http://localhost:3002/") //3 & 4
+    const {get, post} = useFetch("https://firebasestorage.googleapis.com/v0/b/sandbox-ca2f2.appspot.com/o/data.json?alt=media&token=22e31b2a-d4a5-4769-a42e-f2113dd4ba96/") //3 & 4
     const [data, setData] = useState([]) // 3
     const [toggle, setToggle] = useState(false) //3
     const [name, setName] = useState() // 4
     const [username, setUserName] = useState() //4
-    const [pData, setPData] = useState([]) //4
+    const [pData, setPData] = useState([]) //4   
     
-    const handleToggleButton = () => {
+    const handleToggleButton = () => { //3
         try{
-            get("data.json").then(data => {setData(data); setPData(data); setToggle(!toggle)})
+            get("data.json").then(data => {setData(data); setToggle(!toggle)})
         }
         catch (error) {
             console.log(error)
-        }
-        
+        }  
     }
 
-    function handleFormSubmit(event) {
+    function handleFormSubmit(event) { //4
         event.preventDefault();
-
         try {
-            post("data.json", {
-                name: name,
+            post("data.json", [{
+                data: name,
                 username: username
-            })
+            }])
             .then(data => {
                 if(data){
                     setPData([...pData, {
@@ -65,9 +69,10 @@ const Sandbox = () => {
         catch (error) {
             console.log(error)
         }
-    }
-
-    console.log(pData)
+    }  
+    // This saves the pData sent to a useState automatically. Use pData for other things. 
+    useSave("useSave2-", pData)
+    
 
     return <>
         <div className="w-1/2 py-4 ml-auto mr-auto space-x-3 space-y-5 bg-white rounded">
@@ -88,11 +93,11 @@ const Sandbox = () => {
             </div>
             <div className="flex justify-between px-5">
                 <p>3. Custom useFetch Hook (pulls up a name)</p>
-                <div className="flex space-x-10 justify-evenly">
-                  <button onClick={() => handleToggleButton()} className={`text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow`}>
-                            {!toggle ? "Refresh":"Get" }
+                <div className="flex space-x-10 bg-green-200 justify-evenly">
+                  <button onClick={() => handleToggleButton()} className={BTN_COLOR_ENABLED}>
+                            {toggle ? "Refresh":"Get" }
                         </button>
-                    {!toggle ? data.map((x) => <p class="space-x-3">{x.name}</p>) : ""}
+                    {toggle ? pData.map((x) => <p class="space-x-3">Name: {x.name} &amp; UName: {x.username}</p>) : ""}
                 </div>
             </div>
             <div className="flex justify-between px-5">
@@ -100,10 +105,12 @@ const Sandbox = () => {
                 <form onSubmit={handleFormSubmit} >
                     <input className="border-b-2 border-green-200 focus:border-green-400" type="text" value={name} name="name" onChange={event => setName(event.target.value)} placeholder="Enter name" />
                     <input className="border-b-2 border-green-200" type="text" value={username} name="uname" onChange={event => setUserName(event.target.value)} placeholder="username?" />
-                    <input className="px-2 py-1 text-black bg-gray-200 rounded shadow hover:bg-gray-400" type="submit" />
+                    {username && username !== null && name && name !== null  
+                        ? <button className={BTN_COLOR_ENABLED} type="submit">Submit</button> 
+                        : <button className={BTN_COLOR_DISABLED} disabled>Disabled</button>
+                    }
                 </form>
-            </div>
-            
+            </div>    
         </div>
     </>
 }
