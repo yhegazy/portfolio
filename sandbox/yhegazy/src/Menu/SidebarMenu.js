@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
-// First, we get this bad boy working - this is going to take a while so don't give up. I believe that once I clean and convert this to reactjs standards, I can then customize and tweak from there. THIS WILL TAKE ME ALL DAY! I BELIEVE I CAN GET THIS ACCOMPLISHED! useREF!
-
-// I was making this too complicated. I simplified it. Open Menu will have drop downs on display. 
-
+import {AiOutlineHome} from 'react-icons/ai'
 
 export const menuData = [
     {
@@ -18,7 +15,7 @@ export const menuData = [
         title: 'About',
         exact: true,
         to: '/about',
-        icon: 'bx bx-pie-chart-alt-2',
+        icon: 'bx bx-font',
         subMenus: [
         { title: "Resume", to: "/about/resume" },
         { title: "Random", to: "/about/random" },
@@ -41,13 +38,12 @@ export const menuData = [
         title: 'Contact',
         exact: true,
         to: '/contact',
-        icon: 'bx bx-pie-chart-alt-2',
+        icon: 'bx bx-comment-detail',
     },
 ];
 
 const SidebarMenu = () => {
     const [mToggle, setMToggle] = useState(false)
-    const menuState = "text-lg text-white opacity-100 block"
     const handleMenuItemToggle = () =>  setMToggle(!mToggle)
 
 return <>
@@ -67,11 +63,11 @@ return <>
                             </a>
                         </div>
             
-                        <ul className={mToggle ? "text-lg text-white opacity-100 px-10 bg-indigo-900" : "sub-menu"}>
+                        <ul className={mToggle ? "text-lg text-white opacity-100 border-b-4 border-dotted border-gray-800" : "sub-menu"}>
                             <li>
                                {mToggle ? "" :  <a className="link_name" href="#">{item.title}</a>}
                             </li>
-                            {item.subMenus ? item.subMenus.map((subItem, index) => <li id={index}>
+                            {item.subMenus ? item.subMenus.map((subItem, index) => <li id={index} className={mToggle ? "w-1/2 pb-1 ml-auto mr-auto": ""}>
                                 <a href="#">{subItem.title}</a>
                             </li>): ""}
                         </ul>
