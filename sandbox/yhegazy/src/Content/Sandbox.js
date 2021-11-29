@@ -13,12 +13,15 @@
 
 
 
-import {useState, useRef} from 'react'
+import {useState, useContext} from 'react'
 // import useSave from './Content/sandbox/useSave'
 import useDocumentTitle from './sandbox/useDocumentTitle'
 import useProductCounter from './sandbox/useProductCounter'
 import useFetch from './sandbox/useFetch'
 import useSave from './sandbox/useSave'
+
+import Login from './Login'
+import { AuthContext, AuthProvider } from './Context/AuthContext'
 
 const BTN_COLOR_ENABLED ="text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow"
 const BTN_COLOR_DISABLED="text-white bg-gray-400 rounded hover:bg-gray-700 py-2 px-4 shadow cursor-not-allowed"
@@ -73,6 +76,8 @@ const Sandbox = () => {
     // This saves the pData sent to a useState automatically. Use pData for other things. 
     useSave("useSave2-", pData)
     
+    const context = useContext(AuthContext) //5
+    console.log(context) //5
 
     return <>
         <div className="w-1/2 py-4 ml-auto mr-auto space-x-3 space-y-5 bg-white rounded">
@@ -110,7 +115,13 @@ const Sandbox = () => {
                         : <button className={BTN_COLOR_DISABLED} disabled>Disabled</button>
                     }
                 </form>
-            </div>    
+            </div>   
+            <div className="flex justify-between px-5 bg-green-200">
+                <p>5.useContext</p>
+                <AuthProvider>
+                    <Login />
+                </AuthProvider>
+                </div> 
         </div>
     </>
 }

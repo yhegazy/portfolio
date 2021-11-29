@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {AiOutlineHome} from 'react-icons/ai'
 
 export const menuData = [
     {
@@ -40,6 +39,13 @@ export const menuData = [
         to: '/contact',
         icon: 'bx bx-comment-detail',
     },
+    {
+        id: 5,
+        title: 'User Profile',
+        exact: true,
+        to: '/userprofile',
+        icon: 'bx bx-face',
+    },
 ];
 
 const SidebarMenu = () => {
@@ -56,19 +62,21 @@ return <>
             <ul className="nav-links">
                 {menuData.map((item) => 
                     <li key={item.id}>
-                        <div className="iocn-link">
-                            <a href="#">
+                        <div className={mToggle ? "flex item-center justify-between":"block"}>
+                            <p className="flex items-center no-underline">
                                 <i className={item.icon} ></i>
-                                <span className="link_name">{item.title}</span>
-                            </a>
+                                <span className={mToggle ? "text-lg text-white transition-all duration-500 ease-linear ": "opacity-0 pointer-events-none"}>{item.title}</span>
+                            </p>
                         </div>
             
+                        {/* sub-menu style.css */}
                         <ul className={mToggle ? "text-lg text-white opacity-100 border-b-4 border-dotted border-gray-800" : "sub-menu"}>
+                        
                             <li>
-                               {mToggle ? "" :  <a className="link_name" href="#">{item.title}</a>}
+                               {mToggle ? "" :  <p className="text-lg text-white transition-all duration-500 ease-linear ">{item.title}</p>}
                             </li>
                             {item.subMenus ? item.subMenus.map((subItem, index) => <li id={index} className={mToggle ? "w-1/2 pb-1 ml-auto mr-auto": ""}>
-                                <a href="#">{subItem.title}</a>
+                                 <p className="py-1 text-white transition-all duration-300 ease-linear whitespace-nowrap opacity-60 hover:opacity-100">{subItem.title}</p>
                             </li>): ""}
                         </ul>
                     </li>
@@ -77,9 +85,9 @@ return <>
                     <div className={`fixed bottom-0 ${mToggle ? " w-64 flex items-center justify-between bg-gray-700 py-3 space-x-2 transition-all duration-500 ease-out" : " bg-none w-16 p-1"}`}> 
                         <div className="flex items-center">
                             
-                            <img src="profile.jpg" alt="profileImg" className={`${mToggle ? "h-12 w-12 object-cover rounded-full bg-indigo-900": "p-1"}`} />
+                            <img src="profile.jpg" alt="profileImg" className={`${mToggle ? "h-12 w-12 object-cover rounded-full": "p-1"}`} />
                         </div>
-                        <div className="name-job">
+                        <div>
                             <p className={mToggle ? "font-semibold text-white whitespace-nowrap": "hidden"}>John Doe</p>
                             <p className={mToggle ? "text-white text-xs whitespace-nowrap " : "hidden"}>Web Developer</p>
                         </div>

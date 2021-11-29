@@ -1,3 +1,5 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.BTN_COLOR_ENABLED {@apply text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow}
