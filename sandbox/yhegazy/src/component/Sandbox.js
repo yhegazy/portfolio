@@ -13,7 +13,7 @@
 
 
 
-import {useState, useContext} from 'react'
+import {useState} from 'react'
 // import useSave from './Content/sandbox/useSave'
 import useDocumentTitle from './sandbox/useDocumentTitle'
 import useProductCounter from './sandbox/useProductCounter'
@@ -21,10 +21,9 @@ import useFetch from './sandbox/useFetch'
 import useSave from './sandbox/useSave'
 
 import Login from './Login'
-import { AuthContext, AuthProvider } from './Context/AuthContext'
+import { AuthProvider } from '../context/AuthContext'
+import Button from "../ui/Button"
 
-const BTN_COLOR_ENABLED ="text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow"
-const BTN_COLOR_DISABLED="text-white bg-gray-400 rounded hover:bg-gray-700 py-2 px-4 shadow cursor-not-allowed"
 
 const Sandbox = () => {
     // useDocumentTitle customHook
@@ -40,6 +39,8 @@ const Sandbox = () => {
     const [name, setName] = useState() // 4
     const [username, setUserName] = useState() //4
     const [pData, setPData] = useState([]) //4   
+
+    
     
     const handleToggleButton = () => { //3
         try{
@@ -48,8 +49,10 @@ const Sandbox = () => {
         catch (error) {
             console.log(error)
         }  
+        console.log(toggle, data)
     }
 
+    
     function handleFormSubmit(event) { //4
         event.preventDefault();
         try {
@@ -76,9 +79,6 @@ const Sandbox = () => {
     // This saves the pData sent to a useState automatically. Use pData for other things. 
     useSave("useSave2-", pData)
     
-    const context = useContext(AuthContext) //5
-    console.log(context) //5
-
     return <>
         <div className="w-1/2 py-4 ml-auto mr-auto space-x-3 space-y-5 bg-white rounded">
             <div className="flex justify-center">
@@ -99,9 +99,11 @@ const Sandbox = () => {
             <div className="flex justify-between px-5">
                 <p>3. Custom useFetch Hook (pulls up a name)</p>
                 <div className="flex space-x-10 bg-green-200 justify-evenly">
-                  <button onClick={() => handleToggleButton()} className={BTN_COLOR_ENABLED}>
+                   
+                  <button onClick={() => handleToggleButton()} className={toggle ? "SAVE": "RESETALL"}>
                             {toggle ? "Refresh":"Get" }
                         </button>
+                        
                     {toggle ? pData.map((x) => <p class="space-x-3">Name: {x.name} &amp; UName: {x.username}</p>) : ""}
                 </div>
             </div>
@@ -111,8 +113,8 @@ const Sandbox = () => {
                     <input className="border-b-2 border-green-200 focus:border-green-400" type="text" value={name} name="name" onChange={event => setName(event.target.value)} placeholder="Enter name" />
                     <input className="border-b-2 border-green-200" type="text" value={username} name="uname" onChange={event => setUserName(event.target.value)} placeholder="username?" />
                     {username && username !== null && name && name !== null  
-                        ? <button className={BTN_COLOR_ENABLED} type="submit">Submit</button> 
-                        : <button className={BTN_COLOR_DISABLED} disabled>Disabled</button>
+                        ? <Button.DEFAULT_E type="submit">Submit</Button.DEFAULT_E> 
+                        : <Button.DEFAULT_D disabled>Disabled</Button.DEFAULT_D>
                     }
                 </form>
             </div>   

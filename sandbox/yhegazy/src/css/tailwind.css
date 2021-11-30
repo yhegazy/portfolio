@@ -2,4 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.BTN_COLOR_ENABLED {@apply text-white bg-indigo-400 rounded hover:bg-indigo-700 py-2 px-4 shadow}
+
+/* ButtonJS CSS */
+.DEFAULT {@apply font-semibold text-white rounded py-2 px-4 shadow }
+.DEFAULT_E{@apply DEFAULT bg-indigo-400 hover:bg-indigo-700}
+.DEFAULT_D{@apply DEFAULT bg-gray-400 cursor-not-allowed}
+.SAVE {@apply DEFAULT bg-blue-500 hover:bg-blue-700}
+.RESETALL {@apply DEFAULT bg-red-500 rounded hover:bg-red-700}
+
+.OVERRIDE {@apply font-semibold rounded py-2 px-4 shadow}
+.OVERRIDE_E {@apply OVERRIDE bg-indigo-500 hover:bg-indigo-700 text-white}
+.OVERRIDE_D {@apply OVERRIDE text-gray-800 bg-white border border-gray-400 hover:bg-gray-100}

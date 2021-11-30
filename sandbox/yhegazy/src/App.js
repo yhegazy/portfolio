@@ -1,6 +1,6 @@
 import {useState} from 'react'
 // import Welcome from './Content/Welcome'
-import Sandbox from './Content/Sandbox'
+import Sandbox from './component/Sandbox'
 
 import SidebarMenu from './Menu/SidebarMenu'
 
