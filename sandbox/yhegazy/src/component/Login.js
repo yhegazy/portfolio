@@ -7,9 +7,9 @@ const Login = () => {
     console.log(status, toggleLogin)
     return <>
     {/* Construct into a form -> Fetch Get is used to validate against the data. If correct, then toggle to true. Otherwise, print red msg of uname/pwd incorrect */}
-        <button className="BTN_COLOR_ENABLED" onClick={toggleLogin}>Click To Login</button>
+        <button className={status ? "RESETALL" : "OVERRIDE_D"} onClick={toggleLogin}>{status ? 'Logout': 'Click To Login'}</button>
         <h1>Are you authenticated?</h1>
-        {status === true ? 
+        {status ? 
             <p>Yes you are</p>
         : 
             <p>Nopes</p>

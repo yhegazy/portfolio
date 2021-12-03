@@ -3,6 +3,7 @@ import {useState} from 'react'
 import Sandbox from './component/Sandbox'
 
 import SidebarMenu from './Menu/SidebarMenu'
+import SidebarMenu2 from './Menu/SidebarMenu2'
 
 import "./css/general.css"
 import "./css/index.css"
@@ -18,7 +19,8 @@ function App() {
   
   return <>
     <div className={`App ${displaySizeColor}`}>
-      <SidebarMenu />
+      {/* <SidebarMenu /> */}
+      <SidebarMenu2 />
 
       {/* Content  */}
       {/* <Welcome dsc={displaySizeColor} key="2" /> */}
