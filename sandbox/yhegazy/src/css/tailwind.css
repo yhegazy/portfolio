@@ -13,3 +13,17 @@
 .OVERRIDE {@apply font-semibold rounded py-2 px-4 shadow}
 .OVERRIDE_E {@apply OVERRIDE bg-indigo-500 hover:bg-indigo-700 text-white}
 .OVERRIDE_D {@apply OVERRIDE text-gray-800 bg-white border border-gray-400 hover:bg-gray-100}
+
+/* Menu CSS */
+.SIDEBAR {@apply fixed top-0 left-0 h-full transition-all duration-500 ease-linear} 
+.SIDEBAR_OPEN {@apply w-64  bg-indigo-900 bg-opacity-50}
+.SUBMENU_UL {@apply h-full pt-4 pb-24 overflow-auto;}
+.SUBMENU_LI {@apply relative list-none transition duration-500 ease-linear hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer }
+.SUBMENU_LI_I {@apply h-12 w-16 leading-10 text-white text-center text-xl cursor-pointer transition duration-300 ease-linear}
+
+.SUBMENU_A {@apply text-white text-sm py-1.5 px-0 whitespace-nowrap opacity-60 transition-all duration-300 ease-linear hover:opacity-100}
+
+/* Closed Css */
+.SIDEBAR_CLOSED {@apply w-16}
+
+

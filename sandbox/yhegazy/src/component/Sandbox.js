@@ -25,6 +25,7 @@ import { AuthProvider } from '../context/AuthContext'
 import Button from "../ui/Button"
 
 
+
 const Sandbox = () => {
     // useDocumentTitle customHook
     const [title, setTitle] = useState("")
@@ -97,7 +98,7 @@ const Sandbox = () => {
                 </div>
             </div>
             <div className="flex justify-between px-5">
-                <p>3. Custom useFetch Hook (pulls up a name)</p>
+                <p>3. Custom useFetch Hook (gets #4's data)</p>
                 <div className="flex space-x-10 bg-green-200 justify-evenly">
                    
                   <button onClick={() => handleToggleButton()} className={toggle ? "SAVE": "RESETALL"}>
