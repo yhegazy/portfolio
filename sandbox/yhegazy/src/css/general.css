@@ -29758,6 +29758,10 @@ video {
   transition-duration: 150ms;
 }
 
+.delay-0 {
+  transition-delay: 0ms;
+}
+
 .delay-75 {
   transition-delay: 75ms;
 }
@@ -29790,6 +29794,14 @@ video {
   transition-delay: 1000ms;
 }
 
+.delay-2000 {
+  transition-delay: 2000ms;
+}
+
+.duration-0 {
+  transition-duration: 0ms;
+}
+
 .duration-75 {
   transition-duration: 75ms;
 }
@@ -29820,6 +29832,10 @@ video {
 
 .duration-1000 {
   transition-duration: 1000ms;
+}
+
+.duration-2000 {
+  transition-duration: 2000ms;
 }
 
 .ease-linear {
@@ -30025,7 +30041,7 @@ video {
   overflow: auto;
   padding-top: 1rem;
   padding-bottom: 6rem;
-}
+}  /* nav-links*/
 
 .SUBMENU_LI {
   position: relative;
@@ -30035,8 +30051,8 @@ video {
 
 .SUBMENU_LI:hover {
   --tw-bg-opacity: 1;
-  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.5;
+  background-color: rgba(55, 48, 163, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.8;
 }
 
 .SUBMENU_LI {
@@ -30097,6 +30113,33 @@ video {
 
 .SIDEBAR_CLOSED {
   width: 4rem
+}
+
+.SUBMENUc_LI {
+  pointer-events: none;
+  left: 100%;
+  display: block;
+  overflow: visible;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
+  padding-top: 1rem;
+  opacity: 0;
+  transition-delay: 0ms;
+  transition-duration: 0ms
+}
+
+.SUBMENUc_LI:hover {
+  pointer-events: auto;
+  top: 0px;
+  --tw-bg-opacity: 1;
+  background-color: rgba(249, 168, 212, var(--tw-bg-opacity));
+  opacity: 1;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 500ms;
+  transition-timing-function: linear
 }
 
 @media (min-width: 640px) {
@@ -59252,6 +59295,10 @@ video {
     transition-duration: 150ms;
   }
 
+  .sm\:delay-0 {
+    transition-delay: 0ms;
+  }
+
   .sm\:delay-75 {
     transition-delay: 75ms;
   }
@@ -59284,6 +59331,14 @@ video {
     transition-delay: 1000ms;
   }
 
+  .sm\:delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .sm\:duration-0 {
+    transition-duration: 0ms;
+  }
+
   .sm\:duration-75 {
     transition-duration: 75ms;
   }
@@ -59314,6 +59369,10 @@ video {
 
   .sm\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .sm\:duration-2000 {
+    transition-duration: 2000ms;
   }
 
   .sm\:ease-linear {
@@ -88486,6 +88545,10 @@ video {
     transition-duration: 150ms;
   }
 
+  .md\:delay-0 {
+    transition-delay: 0ms;
+  }
+
   .md\:delay-75 {
     transition-delay: 75ms;
   }
@@ -88518,6 +88581,14 @@ video {
     transition-delay: 1000ms;
   }
 
+  .md\:delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .md\:duration-0 {
+    transition-duration: 0ms;
+  }
+
   .md\:duration-75 {
     transition-duration: 75ms;
   }
@@ -88548,6 +88619,10 @@ video {
 
   .md\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .md\:duration-2000 {
+    transition-duration: 2000ms;
   }
 
   .md\:ease-linear {
@@ -117720,6 +117795,10 @@ video {
     transition-duration: 150ms;
   }
 
+  .lg\:delay-0 {
+    transition-delay: 0ms;
+  }
+
   .lg\:delay-75 {
     transition-delay: 75ms;
   }
@@ -117752,6 +117831,14 @@ video {
     transition-delay: 1000ms;
   }
 
+  .lg\:delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .lg\:duration-0 {
+    transition-duration: 0ms;
+  }
+
   .lg\:duration-75 {
     transition-duration: 75ms;
   }
@@ -117782,6 +117869,10 @@ video {
 
   .lg\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .lg\:duration-2000 {
+    transition-duration: 2000ms;
   }
 
   .lg\:ease-linear {
@@ -146954,6 +147045,10 @@ video {
     transition-duration: 150ms;
   }
 
+  .xl\:delay-0 {
+    transition-delay: 0ms;
+  }
+
   .xl\:delay-75 {
     transition-delay: 75ms;
   }
@@ -146986,6 +147081,14 @@ video {
     transition-delay: 1000ms;
   }
 
+  .xl\:delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .xl\:duration-0 {
+    transition-duration: 0ms;
+  }
+
   .xl\:duration-75 {
     transition-duration: 75ms;
   }
@@ -147016,6 +147119,10 @@ video {
 
   .xl\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .xl\:duration-2000 {
+    transition-duration: 2000ms;
   }
 
   .xl\:ease-linear {
@@ -176188,6 +176295,10 @@ video {
     transition-duration: 150ms;
   }
 
+  .\32xl\:delay-0 {
+    transition-delay: 0ms;
+  }
+
   .\32xl\:delay-75 {
     transition-delay: 75ms;
   }
@@ -176220,6 +176331,14 @@ video {
     transition-delay: 1000ms;
   }
 
+  .\32xl\:delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .\32xl\:duration-0 {
+    transition-duration: 0ms;
+  }
+
   .\32xl\:duration-75 {
     transition-duration: 75ms;
   }
@@ -176250,6 +176369,10 @@ video {
 
   .\32xl\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .\32xl\:duration-2000 {
+    transition-duration: 2000ms;
   }
 
   .\32xl\:ease-linear {

@@ -16,14 +16,17 @@
 
 /* Menu CSS */
 .SIDEBAR {@apply fixed top-0 left-0 h-full transition-all duration-500 ease-linear} 
-.SIDEBAR_OPEN {@apply w-64  bg-indigo-900 bg-opacity-50}
-.SUBMENU_UL {@apply h-full pt-4 pb-24 overflow-auto;}
-.SUBMENU_LI {@apply relative list-none transition duration-500 ease-linear hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer }
+.SIDEBAR_OPEN {@apply w-64 bg-indigo-900 bg-opacity-50}
+.SUBMENU_UL {@apply h-full pt-4 pb-24 overflow-auto;}  /* nav-links*/
+.SUBMENU_LI {@apply relative list-none transition duration-500 ease-linear cursor-pointer hover:bg-indigo-800 hover:bg-opacity-80 }
 .SUBMENU_LI_I {@apply h-12 w-16 leading-10 text-white text-center text-xl cursor-pointer transition duration-300 ease-linear}
 
 .SUBMENU_A {@apply text-white text-sm py-1.5 px-0 whitespace-nowrap opacity-60 transition-all duration-300 ease-linear hover:opacity-100}
 
+
 /* Closed Css */
 .SIDEBAR_CLOSED {@apply w-16}
+.SUBMENUc_LI {@apply block pt-4 overflow-visible bg-green-500 rounded-md opacity-0 pointer-events-none left-full duration-0 delay-0}
+.SUBMENUc_LI:hover {@apply top-0 opacity-100 pointer-events-auto transition-all duration-500 ease-linear bg-pink-300}
 
 
