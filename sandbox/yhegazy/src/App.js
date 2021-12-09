@@ -2,13 +2,13 @@ import {useState} from 'react'
 // import Welcome from './Content/Welcome'
 import Sandbox from './component/Sandbox'
 
-import SidebarMenu from './Menu/SidebarMenu'
-import SidebarMenu2 from './Menu/SidebarMenu2'
+// import SidebarMenu from './Menu/SidebarMenu'
+// import SidebarMenu2 from './Menu/SidebarMenu2'
 import SidebarMenu3 from './Menu/SidebarMenu3'
 
 import "./css/general.css"
 import "./css/index.css"
-import "./css/style.css"
+import "./css/sidebar.css"
 
 
 
@@ -17,16 +17,15 @@ const BG_COLORS = ['bg-blue-500','bg-green-500', 'bg-yellow-500', 'bg-red-500', 
 
 function App() {
   const [displaySizeColor] = useState("bg-blue-500")
+
   
   return <>
     <div className={`App ${displaySizeColor}`}>
-      {/* <SidebarMenu /> */}
-      <SidebarMenu2 />
-      {/* <SidebarMenu3 /> */}
-
+      <SidebarMenu3 />
       {/* Content  */}
       {/* <Welcome dsc={displaySizeColor} key="2" /> */}
-      <Sandbox />
+      <Sandbox  />
+  
 
 
       {/* Footer */}

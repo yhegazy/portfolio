@@ -1,0 +1,66 @@
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: all 0.5s ease;
+}
+
+.sidebar .menu-items{
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+.sidebar.close .menu-items{
+  overflow: visible;
+}
+
+.sidebar .menu-items li{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+
+.sidebar .menu-items li:hover{
+  background: #323049;
+}
+
+.sidebar .menu-items li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar .menu-items li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #323049;
+  display: none;
+}
+.sidebar .menu-items li.showMenu .sub-menu{
+  display: block;
+}
+
+.sidebar.close .menu-items li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar.close .menu-items li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}

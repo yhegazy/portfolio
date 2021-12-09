@@ -81,6 +81,10 @@ return <>
                         </ul>
                     </li>
                 )}
+
+
+
+                {/* Profile */}
                 <li>
                     <div className={`fixed bottom-0 ${mToggle ? " w-64 flex items-center justify-between bg-gray-700 py-3 space-x-2 transition-all duration-500 ease-out" : " bg-none w-16 p-1"}`}> 
                         <div className="flex items-center">

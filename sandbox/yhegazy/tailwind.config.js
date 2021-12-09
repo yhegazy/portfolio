@@ -14,7 +14,15 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      inset: ['responsive', 'hover', 'focus'],
+      pointerEvents: ['responsive', 'hover', 'focus'],
+      transitionProperty: ['responsive', 'hover', 'motion-safe', 'motion-reduce'],
+      transitionDuration: ['responsive', 'hover', 'focus'],
+      transitionDelay: ['responsive', 'hover', 'focus'],
+      transitionTimingFunction: ['responsive', 'hover', 'focus'],
+
+    },
   },
   plugins: [],
   

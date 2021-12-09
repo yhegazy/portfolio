@@ -1,105 +1,61 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom'
 import menuItems from '../Menu/MenuItems2'
 
-const SIDEBAR_ICON = 'text-3xl text-white text-center leading-normal px-4'
-const SIDEBAR_LOGO = "text-2xl font-semibold text-white transition duration-300 delay-100 ease"
-
-// "absolute -top-1.5 mt-0 pt-1.5 pl-20 rounded-md block pointer-events-none opacity-20 bg-green-400 "
+const SIDEBAR_LOGONAME = "text-2xl font-semibold text-white transition duration-300 delay-100 ease"
+const LOGO_DETAILS = "flex w-full h-16 mt-4 text-center"
 
 const SidebarMenu2 = () => {
     const [menuToggle, setMenuToggle] = useState(false)
-    const [menuID, setMenuID] = useState(-1)
+    const [subToggle, setSubToggle] = useState(-1)
 
-    const Open = () => {
-        return <>
-            <nav className={`SIDEBAR SIDEBAR_OPEN`}>
-                <div className="flex items-center w-full h-auto">
-                    <i 
-                        className={` ${SIDEBAR_ICON} bx bx-x`} 
-                        onClick={() => setMenuToggle(!menuToggle)}>
-                    </i>
-                    <p className={SIDEBAR_LOGO}>LOGONAME</p> 
-                </div>
-
-                <ul className="SUBMENU_UL">
-                    {menuItems.map((item) => 
-                        <li key={item.id} className="SUBMENU_LI">
-                            <div>
-                                <p className="flex items-center no-underline">
-                                    <i className={`SUBMENU_LI_I ${item.icon}`} ></i>
-                                    
-                                    <span className="text-lg text-white transition-all duration-500 ease-linear">{item.title}</span>
-                                </p>
-                            </div>
-                
-                            {/* sub-menu style.css */}
-                            <ul className="py-0.5 pr-1.5 -mt-2.5">
-                                {item.subMenus ? item.subMenus.map((subItem, index) => {
-                                    return <>
-                                        <li id={index} className="w-1/2 pb-1 ml-auto mr-auto">
-                                            <p className="py-0.5 text-white transition-all duration-300 ease-linear opacity-50 whitespace-nowrap hover:opacity-70">{subItem.title}</p>
-                                        </li>
-                                    </>
-                                })
-                                : ""}
-                            </ul>
-                        </li>
-                    )}
-                </ul>
-            </nav>
-        </>
-    }
-
-    const Closed = () => {
-        return <> 
-            <nav className={`SIDEBAR SIDEBAR_CLOSED `}>
-                <div>
-                    <i 
-                        className={` ${SIDEBAR_ICON} bx bx-menu`} 
-                        onClick={() => setMenuToggle(!menuToggle)}>
-                    </i>
-                </div>
-
-                <ul className="overflow-visible">
-                    {menuItems.map((item) => 
-                        <li key={item.id} className="block px-5 pt-4 rounded-md opacity-100 pointer-events-none left-full duration-0 delay-0">
-                            <div className="bg-green-500 ">
-                                <p className="flex items-center space-x-3 no-underline">
-                                    <i className={`SUBMENU_LI_I ${item.icon}`} ></i>
-                                    
-                                    <span className="">{item.title}</span>
-                                </p>
-                            </div>
-                
-                            {/* sub-menu style.css */}
-                            <ul>
-                            
-                                <li className="SUBMENU_A">
-                                {item.title}
-                                </li>
-                                {item.subMenus ? item.subMenus.map((subItem, index) => {
-                                    return <>
-                                        <li id={index}>
-                                            <p className="py-0.5 text-white transition-all duration-300 ease-linear opacity-50 whitespace-nowrap hover:opacity-70">{subItem.title}</p>
-                                        </li>
-                                    </>
-                                })
-                                : ""}
-                            </ul>
-                        </li>
-                    )}
-                    
-                </ul>
-            </nav>
-        </>
-    }
-    
     return <>
-    {menuToggle ? <Open /> : <Closed />
-        
-    }
-        
+        <div className={` sidebar left-full ${menuToggle ? "SIDEBAR_OPEN" : "SIDEBAR_CLOSED close"}`}>
+             <div className={LOGO_DETAILS}>
+                <i className={` text-3xl text-white h-12 w-20 px-7 text-center  ${menuToggle ? "bx bx-x" : "bx bx-menu" }`} 
+                    onClick={() => setMenuToggle(!menuToggle)}>
+                </i>
+                <p className={SIDEBAR_LOGONAME}>LOGONAME</p>
+            </div>
+            <ul className="menu-items">
+                {menuItems.map((item) => 
+                    <li key={item.id}>
+                        <div className={menuToggle ? "flex item-center justify-between":"block"}  onClick={() => setSubToggle(item.id)}>
+                            <p className="flex items-center no-underline">
+                                <i className={item.icon} ></i>
+                                <span className={menuToggle ? "text-lg text-white transition-all duration-500 ease-linear ": "opacity-0 pointer-events-none"}>{item.title}</span>
+                            </p>
+                            {menuToggle && item.subMenus &&
+                                <i id={item.id} className="px-5 bx bx-caret-down"  ></i>}
+                        </div>
+            
+                            <ul className={subToggle === item.id &&menuToggle ? "text-lg text-white opacity-100" : "sub-menu hidden"}>
+                        
+                            <li>
+                               {menuToggle ? "" :  <p className="text-lg text-white transition-all duration-500 ease-linear ">{item.title}</p>}
+                            </li>
+                            {item.subMenus && item.subMenus.map((subItem, index) => <li id={index} className={menuToggle && "w-1/2 pb-1 ml-auto mr-auto"}>
+                                 <p className="py-1 text-white transition-all duration-300 ease-linear whitespace-nowrap hover:opacity-100">{subItem.title}</p>
+                            </li>)}
+                        </ul>
+                    </li>
+                )}
+
+                <li>
+                    <div className={`fixed bottom-10 ${menuToggle ? " SIDEBAR_OPEN flex items-center justify-between p-3 space-x-2 transition-all duration-500 ease-out" : " w-16"}`}> 
+                        <div className="flex items-center">
+                            
+                            <img src="profile.jpg" alt="profileImg" className={`${menuToggle ? "h-12 w-12 object-cover rounded-full": "p-1"}`} />
+                        </div>
+                        <div>
+                            <p className={menuToggle ? "font-semibold text-white whitespace-nowrap": "hidden"}>John Doe</p>
+                            <p className={menuToggle ? "text-white text-xs whitespace-nowrap " : "hidden"}>Web Developer</p>
+                        </div>
+                        <i className={menuToggle ? 'bx bx-log-out': "hidden"} ></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </>
 }
 
