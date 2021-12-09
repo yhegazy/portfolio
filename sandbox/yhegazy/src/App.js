@@ -1,9 +1,9 @@
 import {useState} from 'react'
-// import Welcome from './Content/Welcome'
+import {BrowserRouter, Route, Switch,} from 'react-router-dom'
+import Welcome from './component/Welcome'
 import Sandbox from './component/Sandbox'
 
-// import SidebarMenu from './Menu/SidebarMenu'
-// import SidebarMenu2 from './Menu/SidebarMenu2'
+
 import SidebarMenu3 from './Menu/SidebarMenu3'
 
 import "./css/general.css"
@@ -21,10 +21,23 @@ function App() {
   
   return <>
     <div className={`App ${displaySizeColor}`}>
-      <SidebarMenu3 />
+      <BrowserRouter> 
+        <SidebarMenu3 />
+        
+        <Switch>
+      
+          <Route exact path="/">
+            <Welcome dsc={displaySizeColor} key="2" />
+          </Route>
+          
+          <Route exact path="/sandbox">
+            <Sandbox />
+          </Route>
+      
+        </Switch>
+      </BrowserRouter>
       {/* Content  */}
-      {/* <Welcome dsc={displaySizeColor} key="2" /> */}
-      <Sandbox  />
+      
   
 
 

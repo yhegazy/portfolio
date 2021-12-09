@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import menuItems from '../Menu/MenuItems2'
 
 const SIDEBAR_LOGONAME = "text-2xl font-semibold text-white transition duration-300 delay-100 ease"
@@ -10,7 +10,7 @@ const SidebarMenu2 = () => {
     const [subToggle, setSubToggle] = useState(-1)
 
     return <>
-        <div className={` sidebar left-full ${menuToggle ? "SIDEBAR_OPEN" : "SIDEBAR_CLOSED close"}`}>
+        <nav className={` sidebar left-full ${menuToggle ? "SIDEBAR_OPEN" : "SIDEBAR_CLOSED close"}`}>
              <div className={LOGO_DETAILS}>
                 <i className={` text-3xl text-white h-12 w-20 px-7 text-center  ${menuToggle ? "bx bx-x" : "bx bx-menu" }`} 
                     onClick={() => setMenuToggle(!menuToggle)}>
@@ -20,23 +20,27 @@ const SidebarMenu2 = () => {
             <ul className="menu-items">
                 {menuItems.map((item) => 
                     <li key={item.id}>
-                        <div className={menuToggle ? "flex item-center justify-between":"block"}  onClick={() => setSubToggle(item.id)}>
-                            <p className="flex items-center no-underline">
-                                <i className={item.icon} ></i>
-                                <span className={menuToggle ? "text-lg text-white transition-all duration-500 ease-linear ": "opacity-0 pointer-events-none"}>{item.title}</span>
-                            </p>
-                            {menuToggle && item.subMenus &&
-                                <i id={item.id} className="px-5 bx bx-caret-down"  ></i>}
-                        </div>
+                        <Link to={item.to}>
+                            <div className={menuToggle ? "flex item-center justify-between":"block"}  onClick={() => setSubToggle(item.id)}>
+                                <p className="flex items-center no-underline">
+                                    <i className={item.icon} ></i>
+                                    <span className={menuToggle ? "text-lg text-white transition-all duration-500 ease-linear ": "opacity-0 pointer-events-none "}>{item.title}</span>
+                                </p>
+                                {menuToggle && item.subMenus && <i id={item.id} className="px-5 bx bx-caret-down"  ></i>}
+                            </div>
+                        </Link>
             
                             <ul className={subToggle === item.id &&menuToggle ? "text-lg text-white opacity-100" : "sub-menu hidden"}>
                         
-                            <li>
-                               {menuToggle ? "" :  <p className="text-lg text-white transition-all duration-500 ease-linear ">{item.title}</p>}
-                            </li>
-                            {item.subMenus && item.subMenus.map((subItem, index) => <li id={index} className={menuToggle && "w-1/2 pb-1 ml-auto mr-auto"}>
-                                 <p className="py-1 text-white transition-all duration-300 ease-linear whitespace-nowrap hover:opacity-100">{subItem.title}</p>
-                            </li>)}
+                            <Link to={item.to}>
+                                <li>
+                                    {menuToggle ? "" :  <p className="text-lg text-white transition-all duration-500 ease-linear ">{item.title}</p>}
+                                </li>
+                            </Link>
+
+                            {item.subMenus && item.subMenus.map((subItem, index) => <Link to={subItem.to}><li id={index} className={menuToggle && "w-1/2 pb-1 ml-auto mr-auto"}>
+                                 <p className="py-1 text-white transition-all duration-300 ease-linear cursor-pointer whitespace-nowrap hover:opacity-100 hover:text-gray-400">{subItem.title}</p>
+                            </li> </Link>)}
                         </ul>
                     </li>
                 )}
@@ -55,7 +59,7 @@ const SidebarMenu2 = () => {
                     </div>
                 </li>
             </ul>
-        </div>
+        </nav>
     </>
 }
 
