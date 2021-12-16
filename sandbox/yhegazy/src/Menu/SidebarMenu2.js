@@ -31,10 +31,10 @@ const SidebarMenu2 = () => {
                             {item.subMenus &&
                                 <i id={item.id} className="px-5 bx bx-caret-down"  ></i>}
                         </div>
-                        {item.subMenus && item.subMenus.map((subItem) => {
+                        {item.subMenus && item.subMenus.map((subItem, index) => {
                             return <>
                                 {subToggle === item.id && <ul>
-                                    <li>
+                                    <li key={index}>
                                         <div>
                                             <i className={`${SIDEBAR_MENUICON} ${subItem.icon}`}></i>
                                             <span className={SIDEBAR_MENUSPAN}>{menuToggle && subItem.title}</span>

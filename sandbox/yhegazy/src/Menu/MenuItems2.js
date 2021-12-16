@@ -12,11 +12,11 @@ const menuItems = [
         id: 2,
         title: 'About',
         exact: true,
-        to: '/about',
+        to: '#',
         icon: 'bx bx-font',
         subMenus: [
-        { title: "Resume", to: "/about/resume", icon: 'bx bx-face' },
-        { title: "Random", to: "/about/random", icon: 'bx bx-subdirectory-right' },
+        { title: "Me", to: "/me", icon: 'bx bx-face' },
+        { title: "Resume", to: "/resume", icon: 'bx bx-subdirectory-right' },
         ],
         subIcon: ' bx bx-subdirectory-right'
     },
@@ -24,11 +24,13 @@ const menuItems = [
         id: 3,
         title: 'Sandbox',
         exact: true,
-        to: '/sandbox',
+        to: '#',
         icon: 'bx bx-bracket ',
         subMenus: [
-        { title: "HTML5 & CSS3", to: "/skeletal", icon: 'bx bx-face' }, 
-        { title: "Web scraping", to: "/webscrape", icon: 'bx bx-face' },
+        { title: "ReactJS", to: "/sandbox" }, 
+        { title: "Konva", to: "/konva" },
+        { title: "PaperJS", to: "/paper" },
+        { title: "FabricJS", to: "/fabric" },
         ],
     },
     {

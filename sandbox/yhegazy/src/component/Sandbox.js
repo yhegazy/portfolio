@@ -50,7 +50,7 @@ const Sandbox = () => {
         catch (error) {
             console.log(error)
         }  
-        console.log(toggle, data)
+        // console.log(toggle, data)
     }
 
     
@@ -81,7 +81,7 @@ const Sandbox = () => {
     useSave("useSave2-", pData)
     
     return <>
-        <div className="w-1/2 py-4 ml-auto mr-auto space-x-3 space-y-5 bg-white rounded">
+        <main className="w-1/2 py-4 ml-auto mr-auto space-x-3 space-y-5 bg-white rounded">
             <div className="flex justify-center">
                 <h1 className="text-2xl">Sandbox/Portfolio/Playpen......who knows?</h1>
             </div>
@@ -94,7 +94,7 @@ const Sandbox = () => {
                 <div className="flex space-x-10 justify-evenly">
                     <p>Count: <span className="font-semibold">{count}</span></p>
                     <button className="p-2 text-white bg-indigo-500 rounded shadow" onClick={increment}>+1</button>
-                    <button className={`p-2 text-white rounded shadow ${count > 0 ? "bg-pink-500 ": "bg-gray-600 cursor-not-allowed"}`} disabled={count === 0 ? "false": ""} onClick={decrement}>-1</button>
+                    <button className={`p-2 text-white rounded shadow ${count > 0 ? "bg-pink-500 ": "bg-gray-600 cursor-not-allowed"}`} disabled={count === 0 ? 1: 0} onClick={decrement}>-1</button>
                 </div>
             </div>
             <div className="flex justify-between px-5">
@@ -125,7 +125,7 @@ const Sandbox = () => {
                     <Login />
                 </AuthProvider>
                 </div> 
-        </div>
+        </main>
     </>
 }
 
