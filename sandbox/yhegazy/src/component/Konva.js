@@ -1,29 +1,63 @@
 import {useState} from 'react'
-import { Stage, Layer, Shape, Text, Circle, Line } from 'react-konva';
+import { Stage, Layer, Shape, Line } from 'react-konva';
 
 // Base, Arch, Triangular, Half_Arch, Rectangular
+const shapeTopNames = ['Arch', 'Triangular', 'Half Arch', 'Rectangular']
 
 const Konva = () => {
     const [shapeTop, setShapeTop] = useState("")
+    const height = 600
+    const width = 1200
+
+    const LineTop = () => {
+        return <>
+            <Line 
+                x={0}
+                y={0}
+                points={[500, 180, 320, 180]}
+                stroke="black"
+            />
+        </>
+    }
 
     const Triangletop = () => {
         return <>
-            <Shape 
-                sceneFunc={(context, shape) => {
-                    //Attempt 3
-                    context.moveTo(500, 180);
-                    context.lineTo(410, 130)
-                    context.lineTo(320, 180)
+            <Line 
+                x={0}
+                y={0}
+                points={[320, 180, 410, 130, 500, 180]}
+                stroke="black"
+            />
+        </>
+    }
 
-                    // context.closePath();
+    const ArcTop = () => {
+        return <>
+             <Line
+                x={0}
+                y={0}
+                points={[320, 180, 410, 130, 500, 180]}
+                tension={1}
+                stroke="black"
+            />        
+        </>
+    }
+
+    const HalfArcTop = () => {
+        return <>
+             <Shape
+                sceneFunc={(context, shape) => {
+                    context.beginPath();
+                    context.moveTo(320, 180); 
+                    context._context.arcTo(500, 160, 500, 170, 10); 
+                    context.lineTo(500, 180);
                     // (!) Konva specific method, it is very important
                     context.fillStrokeShape(shape);
                 }}
-                fill=''
-                stroke='black'
-                strokeWidth={4}
-                
-            />
+                x={0}
+                y={0}
+                stroke="black"
+            />        
         </>
     }
 
@@ -36,7 +70,7 @@ const Konva = () => {
             </div>
 
             <div className="w-3/4 ml-auto mr-auto bg-gray-200 rounded ">
-                <Stage width="1200" height="600">
+                <Stage width={width} height={height}>
                     <Layer>
                         {/* Base Shape */}
                         <Shape
@@ -52,23 +86,13 @@ const Konva = () => {
                             }}
                             fill=""
                             stroke="black"
-                            strokeWidth={3}
-                            
+                            strokeWidth={3}                            
                         />            
                     </Layer>
 
                     {/* Roof Shape */}
                     <Layer>
-                        {/* Triangle Top */}
-                        {shapeTop === 'Triangular' && <Triangletop /> }
-
-                         {/* Rectangular Top */}
-                            {/* <Line 
-                            x={0}
-                            y={0}
-                            points={[500, 180, 320, 180]}
-                            stroke="black"*/}
-                        
+                        {shapeTop === 'Triangular' ? <Triangletop /> : shapeTop === 'Rectangular' ? <LineTop /> : shapeTop === 'Arch' ? <ArcTop /> : shapeTop === 'Half Arch' ? <HalfArcTop /> : null }                        
                     </Layer>
                 </Stage>
                 
@@ -79,12 +103,8 @@ const Konva = () => {
                 <div className="flex justify-center py-3 space-x-3">
                     <label htmlFor="shape" className="font-medium">Shape Top:</label>
                     <select id="shape" name="type" value={shapeTop} onChange={e => setShapeTop(e.target.value)}>
-                        <option>Arch</option>
-                        <option>Arch Multi</option>
-                        <option>Half Arch</option>
-                        <option>Triangular</option>
-                        <option>Triangular Multi</option>
-                        <option>Rectangular</option> 
+                        <option>Select One</option>
+                        {shapeTopNames.map((name) => <option>{name}</option> )}
                     </select>
                 </div>
 
