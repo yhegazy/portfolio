@@ -2,45 +2,41 @@ import {useState} from 'react'
 import { Stage, Layer, Shape, Line } from 'react-konva';
 
 // Base, Arch, Triangular, Half_Arch, Rectangular
-const shapeTopNames = ['Arch', 'Triangular', 'Half Arch', 'Rectangular']
+const ceilingNames = ['Arch', 'Triangular', 'Half Arch', 'Rectangular']
 
 const Konva = () => {
-    const [shapeTop, setShapeTop] = useState("")
+    const [ceiling, setCeiling] = useState("")
+    const [numArchPeaks, setNumArchPeaks] = useState(1)
+    // const [calculated, setCalculated] = useState(0)
+    
     const height = 600
     const width = 1200
+    const x = 320
+    const y = 180
+    const single = [0, 0, 90, -25, 180, 0];
 
-    const LineTop = () => {
-        return <>
-            <Line 
-                x={0}
-                y={0}
-                points={[500, 180, 320, 180]}
-                stroke="black"
-            />
-        </>
-    }
-
-    const Triangletop = () => {
-        return <>
-            <Line 
-                x={0}
-                y={0}
-                points={[320, 180, 410, 130, 500, 180]}
-                stroke="black"
-            />
-        </>
-    }
-
+    const LineTop = () => <Line x={0} y={0} points={[500, 180, 320, 180]} stroke="black" />
+    
+    const Triangletop = () =>  {
+        const lines = [];
+        for (var i = 0; i < numArchPeaks; i++) {
+            const perSpan = single.map((x) => x / numArchPeaks);
+            lines.push(
+                <Line x={x + i * 180 / numArchPeaks} y={y} points={perSpan} stroke="black" />
+            );
+        }
+        return lines;        
+   }
+   
     const ArcTop = () => {
-        return <>
-             <Line
-                x={0}
-                y={0}
-                points={[320, 180, 410, 130, 500, 180]}
-                tension={1}
-                stroke="black"
-            />        
-        </>
+        const lines = [];
+        for (var i = 0; i < numArchPeaks; i++) {
+            const perSpan = single.map((x) => x / numArchPeaks);
+            lines.push(
+                <Line x={x + i * 180 / numArchPeaks} y={y} points={perSpan} tension={1} stroke="black" />
+            );
+        }
+        return lines;
     }
 
     const HalfArcTop = () => {
@@ -60,6 +56,10 @@ const Konva = () => {
             />        
         </>
     }
+
+    // const handleCalculateButton = () => {
+    //     setCalculated(numArchPeaks)
+    // }
 
     return <>
         <main className="flex flex-wrap w-11/12 ml-auto">
@@ -92,7 +92,8 @@ const Konva = () => {
 
                     {/* Roof Shape */}
                     <Layer>
-                        {shapeTop === 'Triangular' ? <Triangletop /> : shapeTop === 'Rectangular' ? <LineTop /> : shapeTop === 'Arch' ? <ArcTop /> : shapeTop === 'Half Arch' ? <HalfArcTop /> : null }                        
+                        {ceiling === 'Triangular' ? <Triangletop /> : ceiling === 'Rectangular' ? <LineTop /> : 
+                            ceiling === 'Arch' ? <ArcTop /> : ceiling === 'Half Arch' ? <HalfArcTop /> : null }                        
                     </Layer>
                 </Stage>
                 
@@ -100,16 +101,29 @@ const Konva = () => {
             
             <div className="w-1/5 px-5 py-2 ml-auto mr-auto rounded bg-gradient-to-b from-gray-100 to-gray-300">
                 <p className="text-center underline"> Control Menu</p>
-                <div className="flex justify-center py-3 space-x-3">
+                <div className="flex justify-between py-3 space-x-3">
                     <label htmlFor="shape" className="font-medium">Shape Top:</label>
-                    <select id="shape" name="type" value={shapeTop} onChange={e => setShapeTop(e.target.value)}>
+                    <select id="shape" name="type" value={ceiling} onChange={e => setCeiling(e.target.value)}>
                         <option>Select One</option>
-                        {shapeTopNames.map((name) => <option>{name}</option> )}
+                        {ceilingNames.map((name) => <option>{name}</option> )}
                     </select>
                 </div>
 
+                {ceiling === "Triangular" || ceiling === "Arch" ?
+                    <div className="flex justify-between">
+                        <label htmlFor="hasPeaks" className="font-medium">Number of Peaks? </label>
+                        <input className=""  id="hasPeaks" value={numArchPeaks} onChange={e => setNumArchPeaks(e.target.value)} size="5"></input>
+                        
+                    </div>
+                    : <p><span className="font-medium">Number of Peaks? </span> Select an option that has this feature.</p>
+                }
+                {/* {(typeof numArchPeaks || numArchPeaks < 0) && <p className="font-semibold text-red-700">Must be a number greater than 0.</p>} */}
+                    
+                
+
                 <div className="flex justify-center px-10 my-10 text-white">
-                    <button className="DEFAULT_E">Calculate</button>
+                    {/* <button className="DEFAULT_E" onClick={handleCalculateButton}>Calculate</button> */}
+                     <button className="DEFAULT_E">Calculate</button>
                 </div>
             </div>
         </main>
