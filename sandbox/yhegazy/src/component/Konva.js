@@ -3,26 +3,29 @@ import { Stage, Layer, Shape, Line } from 'react-konva';
 
 // Base, Arch, Triangular, Half_Arch, Rectangular
 const ceilingNames = ['Arch', 'Triangular', 'Half Arch', 'Rectangular']
+const colorNames = ['red', 'orange', 'indigo', 'pink', 'purple', 'blue']
 
 const Konva = () => {
     const [ceiling, setCeiling] = useState("")
     const [numArchPeaks, setNumArchPeaks] = useState(1)
-    // const [calculated, setCalculated] = useState(0)
+    const [leftColor, setLeftColor] = useState("")
+    const [topColor, setTopColor] = useState("")
+    const [rightColor, setRightColor] = useState("")
     
     const height = 600
     const width = 1200
     const x = 320
     const y = 180
-    const single = [0, 0, 90, -25, 180, 0];
+    const single = [0, 0, 160, -25, 320, 0];
 
-    const LineTop = () => <Line x={0} y={0} points={[500, 180, 320, 180]} stroke="black" />
+    const LineTop = () => <Line x={0} y={0} points={[320, 180, 640, 180]} stroke={topColor && topColor} strokeWidth={topColor && 10} />
     
     const Triangletop = () =>  {
         const lines = [];
         for (var i = 0; i < numArchPeaks; i++) {
             const perSpan = single.map((x) => x / numArchPeaks);
             lines.push(
-                <Line x={x + i * 180 / numArchPeaks} y={y} points={perSpan} stroke="black" />
+                <Line x={x + i * 320 / numArchPeaks} y={y} points={perSpan} stroke={topColor === "" ? "black": topColor} strokeWidth={numArchPeaks > 10 ? 3: 8} />
             );
         }
         return lines;        
@@ -33,7 +36,7 @@ const Konva = () => {
         for (var i = 0; i < numArchPeaks; i++) {
             const perSpan = single.map((x) => x / numArchPeaks);
             lines.push(
-                <Line x={x + i * 180 / numArchPeaks} y={y} points={perSpan} tension={1} stroke="black" />
+                <Line x={x + i * 320 / numArchPeaks} y={y} points={perSpan} tension={1} stroke={!topColor ? "black": topColor} strokeWidth={numArchPeaks > 10 ? 3: 8} />
             );
         }
         return lines;
@@ -42,24 +45,21 @@ const Konva = () => {
     const HalfArcTop = () => {
         return <>
              <Shape
+            //  0, 0, 160, -25, 320, 0
                 sceneFunc={(context, shape) => {
                     context.beginPath();
-                    context.moveTo(320, 180); 
-                    context._context.arcTo(500, 160, 500, 170, 10); 
-                    context.lineTo(500, 180);
+                    context.moveTo(x, y); 
+                    context._context.arcTo(640, 160, 640, 170, 10); 
+                    context.lineTo(x*2, y);
                     // (!) Konva specific method, it is very important
                     context.fillStrokeShape(shape);
                 }}
                 x={0}
                 y={0}
-                stroke="black"
+                stroke={!topColor ? "black": topColor} strokeWidth={numArchPeaks > 10 ? 3: 8}
             />        
         </>
     }
-
-    // const handleCalculateButton = () => {
-    //     setCalculated(numArchPeaks)
-    // }
 
     return <>
         <main className="flex flex-wrap w-11/12 ml-auto">
@@ -73,21 +73,12 @@ const Konva = () => {
                 <Stage width={width} height={height}>
                     <Layer>
                         {/* Base Shape */}
-                        <Shape
-                            sceneFunc={(context, shape) => {
-                                context.beginPath();
-                                            //-x, -y
-                                context.moveTo(500, 180);
-                                context.lineTo(500, 230);
-                                context.lineTo(320, 230)
-                                context.lineTo(320, 180)
-                                // (!) Konva specific method, it is very important
-                                context.fillStrokeShape(shape);
-                            }}
-                            fill=""
-                            stroke="black"
-                            strokeWidth={3}                            
-                        />            
+                        {/* Need to use walls and roof to colorize */}
+                        {/* Note superscript i: Enlarged width stroke is used for visual purposes only. */}
+                        <Line x={0} y={0} points={[320, 180, 320, 280]} stroke={!leftColor ? "black": leftColor} strokeWidth={10} />
+                        <Line x={0} y={0} points={[320, 280, 640, 280]} stroke="black" strokeWidth={5}/>
+                        <Line x={0} y={0} points={[640, 280, 640, 180]} stroke={!rightColor ? "black": rightColor} strokeWidth={10}  />
+                      
                     </Layer>
 
                     {/* Roof Shape */}
@@ -109,21 +100,37 @@ const Konva = () => {
                     </select>
                 </div>
 
-                {ceiling === "Triangular" || ceiling === "Arch" ?
+                {(ceiling === "Triangular" || ceiling === "Arch") &&
                     <div className="flex justify-between">
                         <label htmlFor="hasPeaks" className="font-medium">Number of Peaks? </label>
-                        <input className=""  id="hasPeaks" value={numArchPeaks} onChange={e => setNumArchPeaks(e.target.value)} size="5"></input>
-                        
+                        <input className=""  id="hasPeaks" value={numArchPeaks} onChange={e => setNumArchPeaks(e.target.value)} size="1"/>    
                     </div>
-                    : <p><span className="font-medium">Number of Peaks? </span> Select an option that has this feature.</p>
                 }
-                {/* {(typeof numArchPeaks || numArchPeaks < 0) && <p className="font-semibold text-red-700">Must be a number greater than 0.</p>} */}
-                    
-                
+                {(isNaN(numArchPeaks) || numArchPeaks < 0) && <p className="font-semibold text-red-700">Must be a number and greater than 0.</p>}
 
-                <div className="flex justify-center px-10 my-10 text-white">
-                    {/* <button className="DEFAULT_E" onClick={handleCalculateButton}>Calculate</button> */}
-                     <button className="DEFAULT_E">Calculate</button>
+                {ceiling !== "Select One" && <div className="flex justify-between py-3 space-x-3">
+                    <label htmlFor="shape" className="font-medium">Ceiling Color:</label>
+                    <select id="shape" name="type" value={topColor} onChange={e => setTopColor(e.target.value)}>
+                        <option>Select One</option>
+                        {colorNames.map((name, id) => <option key={id} >{name}</option> )}
+                    </select>
+                </div>}
+
+                <div className="flex justify-between py-3 space-x-3">
+                    <label htmlFor="shape" className="font-medium">Left wall color</label>
+                    <select id="shape" name="type" value={leftColor} onChange={e => setLeftColor(e.target.value)}>
+                        <option>Select One</option>
+                        {colorNames.map((name, id) => <option key={id} >{name}</option> )}
+                    </select>
+                </div>
+
+
+                <div className="flex justify-between py-3 space-x-3">
+                    <label htmlFor="shape" className="font-medium">Right Wall color</label>
+                    <select id="shape" name="type" value={rightColor} onChange={e => setRightColor(e.target.value)}>
+                        <option>Select One</option>
+                        {colorNames.map((name, id) => <option key={id} >{name}</option> )}
+                    </select>
                 </div>
             </div>
         </main>
