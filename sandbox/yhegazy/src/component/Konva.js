@@ -13,9 +13,9 @@ const Konva = () => {
     const [leftColor, setLeftColor] = useState("")
     const [topColor, setTopColor] = useState("")
     const [rightColor, setRightColor] = useState("")
-    const [base, setBase] = useState(240)
-    const [roofHt, setRoofHt] = useState(13)
-    const [walls, setWalls] = useState(90)
+    const [base, setBase] = useState(250)
+    const [roofHt, setRoofHt] = useState(200)
+    const [walls, setWalls] = useState(80)
     
     const height = 600
     const width = 1200
@@ -23,15 +23,13 @@ const Konva = () => {
     const y = 360
     const single = [0, walls, base / 2, -roofHt, base, walls];
 
-    const LineTop = () => <Line x={x} y={y} points={[0, -walls, base, -walls]} stroke={topColor && topColor} strokeWidth={topColor && 10} />
+    const LineTop = () => <Line x={x} y={y} points={[0, -walls, base, -walls]} stroke={topColor && topColor} strokeWidth={topColor && 3} />
     
     const Triangletop = () =>  {
         const lines = [];
         for (var i = 0; i < numArchPeaks; i++) {
             const perSpan = single.map((x) => x / numArchPeaks);
             lines.push(
-                // <Line x={x + i * base  / numArchPeaks} y={numArchPeaks > 1 ? (y- walls) / numArchPeaks : 180} points={perSpan} stroke={topColor === "" ? "black": topColor} strokeWidth={numArchPeaks > 10 ? 3: 8} />
-
                 <Line x={x + (i * base)  / numArchPeaks} y={y-(walls / numArchPeaks)-walls} points={perSpan} stroke={topColor === "" ? "black": topColor} strokeWidth={3} />
             );
         }
@@ -52,18 +50,18 @@ const Konva = () => {
     const HalfArcTop = () => {
         return <>
              <Shape
-            //  0, 0, 160, -25, 320, 0
                 sceneFunc={(context, shape) => {
                     context.beginPath();
-                    context.moveTo(x, y-walls); 
-                    context._context.arcTo(x*2, 160, x*2, 170, 10); 
-                    context.lineTo(x*2, y-walls);
-                    // (!) Konva specific method, it is very important
-                    context.fillStrokeShape(shape);
+                    context.moveTo(0,-walls); // Create a starting point 
+                    context._context.arcTo(base, -walls-roofHt, base, -walls, roofHt*.25); 
+                    context.lineTo(base, -walls); 
+                    context.fillStrokeShape(shape); // (!) Konva specific method, it is very important
                 }}
-                x={0}
-                y={0}
-                stroke={!topColor ? "black": topColor} strokeWidth={numArchPeaks > 10 ? 3: 8}
+                x={x}
+                y={y}
+
+                
+                stroke={!topColor ? "black": topColor} strokeWidth={3}
             />        
         </>
     }
@@ -124,7 +122,8 @@ const Konva = () => {
                         <option>Select One</option>
                         {colorNames.map((name, id) => <option key={id} >{name}</option> )}
                     </select>
-                </div>, <div className="flex justify-between">
+                </div>, 
+                ceiling !== "Rectangular" && <div className="flex justify-between">
                     <label htmlFor="roofHt" className="font-medium">roof height </label>
                     <input className=""  id="roofHt" value={roofHt} onChange={e => setRoofHt(e.target.value)} size="1"/>    
                 </div>]}
