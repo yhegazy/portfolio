@@ -16,6 +16,10 @@ const Konva = () => {
     const [base, setBase] = useState(250)
     const [roofHt, setRoofHt] = useState(200)
     const [walls, setWalls] = useState(80)
+    const [facingWall1, setFacingWall1] = useState(0)
+    const [facingWall2, setFacingWall2] = useState(0)
+    const [innerLeft, setInnerLeft] = useState(0)
+    const [innerRight, setInnerRight] = useState(0)
     
     const height = 600
     const width = 1200
@@ -66,6 +70,36 @@ const Konva = () => {
         </>
     }
 
+    const FacingWall = () => {
+        return <>
+            {facingWall1 <= walls ? 
+                <Line x={x} y={y} points={[0, -facingWall1, base, -facingWall1]} stroke={facingWall1 > 0 ? "red": "black"} strokeWidth={2}/> 
+            : 
+                <Line x={x} y={y} points={[0, -walls, base, -walls]} stroke="red" strokeWidth={2}/>
+            }
+        </> 
+    }
+
+    const ILeftWall = () => {
+        return <>
+            {innerLeft <= walls ? 
+                <Line x={x} y={y} points={[3, 0, 3, -innerLeft]} stroke={innerLeft > 0 ? "red": "black"} strokeWidth={2}/> 
+            : 
+                <Line x={x} y={y} points={[3, 0, 3, -walls]} stroke="red" strokeWidth={2}/>
+            } 
+        </> 
+    }
+
+    const IRightWall = () => {
+        return <>
+            {innerLeft <= walls ? 
+                <Line x={x} y={y} points={[base-3, 0, base-3, -innerRight]} stroke={innerLeft > 0 ? "red": "black"} strokeWidth={2}/> 
+            : 
+                <Line x={x} y={y} points={[base-3, 0, base-3, -walls]} stroke="red" strokeWidth={2}/>
+            } 
+        </> 
+    }
+
     return <>
         <main className="flex flex-wrap w-11/12 ml-auto">
             <div className="w-1/2 ml-auto mr-auto text-center bg-green-400">
@@ -91,7 +125,16 @@ const Konva = () => {
                     {/* Roof Shape */}
                     <Layer>
                         {ceiling === 'Triangular' ? <Triangletop /> : ceiling === 'Rectangular' ? <LineTop /> : 
-                            ceiling === 'Arch' ? <ArcTop /> : ceiling === 'Half Arch' ? <HalfArcTop /> : null }                        
+                            ceiling === 'Arch' ? <ArcTop /> : ceiling === 'Half Arch' ? <HalfArcTop />  : null }   
+                    </Layer>
+                    <Layer>
+                        <FacingWall/>
+                    </Layer>
+                    <Layer>
+                        <ILeftWall/>
+                    </Layer>
+                    <Layer>
+                        <IRightWall/>
                     </Layer>
                 </Stage>
                 
@@ -152,10 +195,39 @@ const Konva = () => {
                     <input className=""  id="customWidth" value={base} onChange={e => setBase(e.target.value)} size="1"/>    
                 </div>
                
-                <div className="flex justify-between">
+                <div className="flex justify-between ">
                     <label htmlFor="walls" className="font-medium">side height </label>
                     <input className=""  id="walls" value={walls} onChange={e => setWalls(e.target.value)} size="1"/>    
                 </div>
+
+                <div className="flex justify-between py-3">
+                    <label htmlFor="fw1" className="font-medium">facing wall 1 </label>
+                    <input className=""  id="fw1" value={facingWall1} onChange={e => setFacingWall1(e.target.value)} size="1"/>  
+                </div>
+
+                {(isNaN(facingWall1) || facingWall1 < 0) && <p className="font-semibold text-red-700">Must be a number and greater than 0.</p>}  
+
+                <div className="flex justify-between">
+                    <label htmlFor="fw2" className="font-medium">facing wall 2 </label>
+                    <input className=""  id="fw2" value={facingWall2} onChange={e => setFacingWall2(e.target.value)} size="1"/>    
+                </div>
+
+                {(isNaN(facingWall2) || facingWall2< 0) && <p className="font-semibold text-red-700">Must be a number and greater than 0.</p>}  
+
+                <div className="flex justify-between py-3">
+                    <label htmlFor="ilef" className="font-medium">Inner Left Wall </label>
+                    <input className=""  id="ileft" value={innerLeft} onChange={e => setInnerLeft(e.target.value)} size="1"/>    
+                </div>
+
+                {(isNaN(innerLeft) || innerLeft < 0) && <p className="font-semibold text-red-700">Must be a number and greater than 0.</p>}  
+
+                <div className="flex justify-between pb-3">
+                    <label htmlFor="iright" className="font-medium">Inner Right Wall </label>
+                    <input className=""  id="iright" value={innerRight} onChange={e => setInnerRight(e.target.value)} size="1"/>    
+                </div>
+                
+                {(isNaN(innerRight) || innerRight < 0) && <p className="font-semibold text-red-700">Must be a number and greater than 0.</p>}  
+                
             </div>
         </main>
     </>
